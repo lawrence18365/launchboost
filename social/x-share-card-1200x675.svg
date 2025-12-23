@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="675" viewBox="0 0 1200 675" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="675" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bg)"/>
+
+  <!-- Subtle vignette -->
+  <rect width="1200" height="675" fill="#000" opacity="0.1"/>
+
+  <!-- Safe margins (approx 60px) are visually respected below -->
+
+  <!-- Logo placeholder -->
+  <g transform="translate(60,48)">
+    <rect rx="10" ry="10" width="200" height="56" fill="#ffffff" opacity="0.12" stroke="#ffffff" stroke-opacity="0.35"/>
+    <text x="100" y="36" text-anchor="middle" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="20" fill="#ffffff" opacity="0.9">YOUR LOGO</text>
+  </g>
+
+  <!-- Headline -->
+  <g transform="translate(60,140)">
+    <text font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-weight="700" font-size="56" fill="#ffffff" x="0" y="0">
+      <tspan x="0" dy="0">Deals are live in our</tspan>
+      <tspan x="0" dy="64">Creator Directory</tspan>
+    </text>
+  </g>
+
+  <!-- Subheadline / thanks -->
+  <g transform="translate(60,280)">
+    <text font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="26" fill="#E5E7EB" opacity="0.95">
+      <tspan>Thank you to our creators</tspan>
+      <tspan dx="8">❤️</tspan>
+    </text>
+  </g>
+
+  <!-- Creator handle pills (edit these) -->
+  <g transform="translate(60,330)" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="22">
+    <g filter="url(#softShadow)">
+      <rect x="0" y="0" rx="24" ry="24" width="160" height="44" fill="#111827" opacity="0.85" stroke="#93C5FD" stroke-opacity="0.5"/>
+      <text x="80" y="29" text-anchor="middle" fill="#E5E7EB">@creator1</text>
+    </g>
+    <g transform="translate(176,0)" filter="url(#softShadow)">
+      <rect x="0" y="0" rx="24" ry="24" width="160" height="44" fill="#111827" opacity="0.85" stroke="#93C5FD" stroke-opacity="0.5"/>
+      <text x="80" y="29" text-anchor="middle" fill="#E5E7EB">@creator2</text>
+    </g>
+    <g transform="translate(352,0)" filter="url(#softShadow)">
+      <rect x="0" y="0" rx="24" ry="24" width="160" height="44" fill="#111827" opacity="0.85" stroke="#93C5FD" stroke-opacity="0.5"/>
+      <text x="80" y="29" text-anchor="middle" fill="#E5E7EB">@creator3</text>
+    </g>
+    <g transform="translate(528,0)" filter="url(#softShadow)">
+      <rect x="0" y="0" rx="24" ry="24" width="160" height="44" fill="#111827" opacity="0.85" stroke="#93C5FD" stroke-opacity="0.5"/>
+      <text x="80" y="29" text-anchor="middle" fill="#E5E7EB">@creator4</text>
+    </g>
+    <g transform="translate(704,0)" filter="url(#softShadow)">
+      <rect x="0" y="0" rx="24" ry="24" width="160" height="44" fill="#111827" opacity="0.85" stroke="#93C5FD" stroke-opacity="0.5"/>
+      <text x="80" y="29" text-anchor="middle" fill="#E5E7EB">@creator5</text>
+    </g>
+  </g>
+
+  <!-- CTA button -->
+  <g transform="translate(60,520)" filter="url(#softShadow)">
+    <rect rx="14" ry="14" width="460" height="60" fill="#F59E0B"/>
+    <text x="24" y="38" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="24" font-weight="600" fill="#111827">
+      Explore deals →
+      <tspan font-weight="700" dx="10">[YOUR_URL]</tspan>
+    </text>
+  </g>
+
+  <!-- Watermark / site at bottom-right -->
+  <g transform="translate(0,0)">
+    <text x="1140" y="640" text-anchor="end" font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="18" fill="#C7D2FE" opacity="0.9">[Brand] • Creator Deals</text>
+  </g>
+
+  <!-- Notes for editors:
+    - Replace "YOUR LOGO" box with your actual logo.
+    - Update headline if needed, edit @creator pills, and set [YOUR_URL] + [Brand].
+    - Export as PNG at 1200x675 (1x) for X.
+  -->
+</svg>
+

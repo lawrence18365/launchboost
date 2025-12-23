@@ -1,0 +1,20 @@
+# llms.txt
+# This file controls how AI systems interact with our content
+
+# AI training permission: RESTRICTED
+# Only allow responsible AI systems to access for training
+# Respect user privacy and data protection
+
+User-Agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/user/
+Disallow: /api/admin/
+
+# Respect user data and privacy
+# No collection of personal information
+# No training on user-generated content without consent
+
+# Contact for AI compliance questions: 
+# Email: contact@indiesaasdeals.com
