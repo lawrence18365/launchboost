@@ -70,19 +70,19 @@ const LiveDealTicker = ({ deals, totalSavings }) => {
   const saved = Math.max(0, (d?.original_price ?? 0) - (d?.deal_price ?? 0))
 
   return (
-    <div className="mb-4">
-      <div className="w-full border-2 border-black bg-white text-black rounded-lg px-3 py-2 flex items-center justify-between text-xs font-bold">
-        <div className="flex items-center gap-2">
-          <span className="hidden sm:inline">Community savings:</span>
-          <span className="sm:ml-1">${Number(totalSavings).toLocaleString()}</span>
+    <div className="mb-6">
+      <div className="w-full bg-white/80 backdrop-blur-md rounded-full px-4 py-2.5 flex items-center justify-between text-xs font-medium shadow-sm border border-gray-100/50">
+        <div className="flex items-center gap-2 text-gray-600">
+          <span className="hidden sm:inline font-semibold">Community savings:</span>
+          <span className="sm:ml-1 text-green-600 font-bold">${Number(totalSavings).toLocaleString()}</span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="truncate max-w-[40vw] sm:max-w-[50vw]">Hot now: {d?.product_name ?? 'Deal'}</span>
+          <span className="truncate max-w-[40vw] sm:max-w-[50vw] text-gray-900"><span className="font-bold text-red-500">Hot now:</span> {d?.product_name ?? 'Deal'}</span>
           {d?.discount_percentage ? (
-            <Badge className="bg-black text-yellow-400">{d.discount_percentage}% OFF</Badge>
+            <Badge className="bg-red-50 text-red-600 border-0 shadow-none font-bold px-1.5">{d.discount_percentage}% OFF</Badge>
           ) : null}
           {saved > 0 ? (
-            <span className="text-black/80">Save ${saved.toFixed(0)}</span>
+            <span className="text-gray-500 hidden sm:inline">Save ${saved.toFixed(0)}</span>
           ) : null}
         </div>
       </div>
@@ -135,17 +135,17 @@ const TabbedHero = ({ deals, isLoggedIn, heroMode = false, showHeader = true }) 
     <div className={`${heroMode ? 'mt-2' : 'mt-12 md:mt-16'} mb-16`}>
       {/* Section Header */}
       {showHeader && (
-        <div className={`${heroMode ? 'text-left' : 'text-center'} mb-8`}>
+        <div className={`${heroMode ? 'text-left' : 'text-center'} mb-10`}>
           {heroMode ? (
-            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-black mb-4">
+            <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 mb-4 watercolor-text">
               Hot Deals Right Now
             </h2>
           ) : (
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 watercolor-text">
               Hot Deals Right Now
             </h2>
           )}
-          <p className={`text-base md:text-lg text-black/70 ${heroMode ? '' : 'font-medium'}`}>
+          <p className={`text-base md:text-lg text-gray-600 ${heroMode ? '' : 'font-medium'}`}>
             Fresh, verified discounts from indie SaaS founders — save on tools to build, launch, and grow.
           </p>
         </div>
@@ -153,7 +153,7 @@ const TabbedHero = ({ deals, isLoggedIn, heroMode = false, showHeader = true }) 
 
       {/* Tab Navigation */}
       <div className={`${heroMode || !showHeader ? 'justify-start' : 'justify-center'} flex mb-8 overflow-x-auto no-scrollbar -mx-2 px-2 md:mx-0 md:px-0 w-full`}>
-        <div className="bg-white border-2 border-black rounded-full p-1 inline-flex whitespace-nowrap gap-1 shadow-lg w-max">
+        <div className="bg-gray-100/50 backdrop-blur-sm p-1.5 rounded-full inline-flex whitespace-nowrap gap-2 shadow-inner w-max">
           {tabs.map(tab => {
             const TabIcon = tab.icon
             const tabDeals = getFilteredDeals(tab.id)
@@ -161,23 +161,23 @@ const TabbedHero = ({ deals, isLoggedIn, heroMode = false, showHeader = true }) 
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-3 py-2 md:px-4 md:py-3 rounded-full font-bold transition-all text-xs md:text-sm ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full font-bold transition-all text-xs md:text-sm ${
                   activeTab === tab.id 
-                    ? 'bg-black text-yellow-400 shadow-md' 
-                    : 'text-black hover:bg-gray-100'
+                    ? 'bg-white text-gray-900 shadow-md transform scale-105' 
+                    : 'text-gray-500 hover:text-gray-900 hover:bg-white/50'
                 }`}
               >
                 <TabIcon className="w-4 h-4" />
                 <span className="hidden sm:inline">{tab.label}</span>
                 <span className="sm:hidden">{tab.label.split(' ')[0]}</span>
                 {tabDeals.length > 0 && (
-                  <Badge className={`ml-1 px-2 py-0.5 text-[10px] md:text-xs md:px-2.5 ${
+                  <span className={`ml-1 px-1.5 py-0.5 rounded-full text-[10px] md:text-xs ${
                     activeTab === tab.id 
-                      ? 'bg-yellow-400 text-black' 
-                      : 'bg-gray-200 text-gray-700'
+                      ? 'bg-yellow-100 text-yellow-800' 
+                      : 'bg-gray-200 text-gray-600'
                   }`}>
                     {tabDeals.length}
-                  </Badge>
+                  </span>
                 )}
               </button>
             )
@@ -188,21 +188,21 @@ const TabbedHero = ({ deals, isLoggedIn, heroMode = false, showHeader = true }) 
       {/* Tab Content - Grid of exactly 4 deals */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
         {filteredDeals.length === 0 ? (
-          <div className="col-span-full text-center py-8">
-            <div className="text-gray-500 mb-2">
+          <div className="col-span-full text-center py-12 bg-gray-50 rounded-3xl border border-dashed border-gray-200">
+            <div className="text-gray-400 mb-3">
               {activeTab === 'ending' ? 'No deals ending soon' : 
                activeTab === 'new' ? 'Loading fresh deals...' :
                activeTab === 'discounts' ? 'Calculating biggest savings...' :
                ' Loading trending deals...'}
             </div>
-            <p className="text-sm text-gray-400">Check back soon for updates!</p>
+            <p className="text-sm text-gray-400 font-medium">Check back soon for updates!</p>
           </div>
         ) : (
           filteredDeals.slice(0, 4).map((deal, i) => (
             <div
               key={deal.id}
               className="animate-slide-up"
-              style={{ animationDelay: `${i * 60}ms` }}
+              style={{ animationDelay: `${i * 100}ms` }}
             >
               <QuickDealCard deal={deal} isLoggedIn={isLoggedIn} showVotes={activeTab === 'trending'} />
             </div>
@@ -211,19 +211,20 @@ const TabbedHero = ({ deals, isLoggedIn, heroMode = false, showHeader = true }) 
       </div>
       
       {/* Show All Button */}
-      {filteredDeals.length > 8 && (
-        <div className="text-center mt-8">
+      {filteredDeals.length > 4 && (
+        <div className="text-center mt-10">
           <Link 
             href={activeTab === 'ending' ? '/deals?filter=ending' : 
                   activeTab === 'new' ? '/deals?filter=new' :
                   activeTab === 'discounts' ? '/deals?sort=discount' :
                   '/deals?sort=popular'}
-            className="bg-black text-yellow-400 px-8 py-3 rounded-full font-bold hover:bg-gray-800 transition-all duration-200 inline-flex items-center gap-2 shadow-lg hover:shadow-xl"
+            className="group btn-organic bg-white border border-gray-200 text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-gray-50 transition-all duration-200 inline-flex items-center gap-2 shadow-sm hover:shadow-md"
           >
             View All {tabs.find(t => t.id === activeTab)?.label} 
-            <Badge className="bg-yellow-400 text-black ml-2">
+            <Badge className="bg-gray-100 text-gray-600 ml-1 group-hover:bg-gray-200 border-none">
               {filteredDeals.length}
             </Badge>
+            <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       )}
@@ -234,52 +235,55 @@ const TabbedHero = ({ deals, isLoggedIn, heroMode = false, showHeader = true }) 
 // Above-the-fold hero wrapper combining intro + live deals with subtle animations
 const AboveFoldHero = ({ allDeals, isLoggedIn }) => {
   return (
-    <section className="relative bg-brand">
-      <div className="max-w-7xl mx-auto px-6 md:px-8 pt-14 md:pt-20 pb-12 md:pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+    <section className="relative watercolor-bg rounded-[3rem] overflow-hidden my-4 mx-4 md:mx-0">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-16 md:pt-24 pb-16 md:pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-5 animate-slide-up">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/5 border border-black/10 text-xs font-bold uppercase tracking-wider mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-sm border border-black/5 text-xs font-bold uppercase tracking-wider mb-6 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
               Live: {allDeals.length > 0 ? allDeals.length : '12'} Active Deals
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.05] text-black mb-6">
-              SaaS Deals That <span className="underline decoration-yellow-400 decoration-4 underline-offset-4">Actually Work.</span>
+            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.0] text-black mb-8 watercolor-text">
+              SaaS Deals That <span className="relative inline-block text-black">
+                Actually Work.
+                <svg className="absolute w-full h-3 -bottom-1 left-0 text-yellow-300 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
+                  <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
+                </svg>
+              </span>
             </h1>
-            <p className="text-base md:text-lg text-black/80 max-w-xl mb-8 leading-relaxed font-medium">
+            <p className="text-lg md:text-xl text-gray-700 max-w-xl mb-10 leading-relaxed font-medium">
               Stop buying "lifetime deals" for tools that die in a month. We manually verify every founder. No abandonedware. No fake markups. Just legitimate tools for builders who ship.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
               <Link 
                 href="/deals" 
-                className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-black bg-yellow-400 rounded-lg hover:bg-yellow-300 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]"
+                className="btn-organic inline-flex items-center justify-center px-8 py-4 text-base font-bold text-black bg-yellow-400 hover:bg-yellow-300 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all"
               >
                 Browse Verified Deals
               </Link>
               <Link 
                 href="/dashboard/deals/new" 
-                className="inline-flex items-center justify-center px-8 py-4 text-base font-bold text-black bg-transparent border-2 border-black rounded-lg hover:bg-black/5 transition-all"
+                className="btn-organic inline-flex items-center justify-center px-8 py-4 text-base font-bold text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 hover:border-gray-300 shadow-sm hover:shadow-md transition-all"
               >
                 Submit a Deal
               </Link>
             </div>
             
-            <div className="mt-8 flex items-center gap-4 text-xs font-medium text-black/60">
-              <div className="flex items-center gap-1">
-                <CheckCircle2 className="w-4 h-4 text-green-600" />
+            <div className="mt-10 flex items-center gap-6 text-sm font-medium text-gray-500">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-green-500" />
                 <span>Founder Verified</span>
               </div>
-              <div className="flex items-center gap-1">
-                <CheckCircle2 className="w-4 h-4 text-green-600" />
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-green-500" />
                 <span>30-Day Guarantee</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <CheckCircle2 className="w-4 h-4 text-green-600" />
-                <span>Direct Support</span>
               </div>
             </div>
           </div>
-          <div className="lg:col-span-7 animate-fade-in">
+          <div className="lg:col-span-7 animate-fade-in relative">
+            {/* Organic blob background for the grid */}
+            <div className="absolute -inset-4 bg-gradient-to-tr from-blue-100/50 to-purple-100/50 rounded-[30%_70%_70%_30%_/_30%_30%_70%_70%] blur-3xl -z-10 opacity-60"></div>
             <TabbedHero deals={allDeals} isLoggedIn={isLoggedIn} heroMode={true} showHeader={false} />
           </div>
         </div>
@@ -304,26 +308,26 @@ const FeaturedDealCard = ({ deal, isLoggedIn, showVotes = true }) => {
   const realCodesLeft = deal.codes_remaining || null
 
   return (
-    <Card className={`group relative overflow-hidden bg-white border-2 hover:shadow-2xl transition-all duration-300 h-full flex flex-col ${
-      isUrgent ? 'border-red-500 animate-pulse' : 'border-black'
+    <Card className={`group relative overflow-hidden organic-card h-full flex flex-col border-none ${
+      isUrgent ? 'ring-2 ring-red-100' : ''
     }`}>
       {isUrgent && (
-        <div className="absolute top-0 left-0 right-0 z-10 bg-red-600 text-white text-xs py-1 px-2 text-center font-bold">
+        <div className="absolute top-0 left-0 right-0 z-10 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs py-1.5 px-2 text-center font-bold shadow-sm">
           <AlertCircle className="w-3 h-3 inline mr-1" />
-          ENDING SOON!
+          ENDING SOON
         </div>
       )}
       
-      <CardContent className={`p-6 ${isUrgent ? 'pt-8' : ''} flex flex-col h-full`}>
-        <div className="flex items-start justify-between mb-4">
-          <Badge className={`font-bold px-3 py-1 ${
-            isUrgent ? 'bg-red-600 text-white' : 'bg-black text-yellow-400'
+      <CardContent className={`p-6 ${isUrgent ? 'pt-10' : ''} flex flex-col h-full bg-white/50`}>
+        <div className="flex items-start justify-between mb-5">
+          <Badge className={`font-bold px-3 py-1 rounded-full shadow-sm border-0 ${
+            isUrgent ? 'bg-red-50 text-red-600' : 'bg-yellow-100 text-yellow-800'
           }`}>
             {deal.discount_percentage}% OFF
           </Badge>
           
           {/* Product Icon */}
-          <div className="w-12 h-12 rounded-lg overflow-hidden border-2 border-gray-200 bg-white flex items-center justify-center">
+          <div className="w-14 h-14 rounded-2xl overflow-hidden shadow-md bg-white flex items-center justify-center transform group-hover:scale-105 transition-transform duration-300">
             {deal.logo_url ? (
               <img 
                 src={deal.logo_url} 
@@ -339,28 +343,28 @@ const FeaturedDealCard = ({ deal, isLoggedIn, showVotes = true }) => {
           </div>
         </div>
         
-        <h3 className="text-xl font-bold text-black mb-2 line-clamp-2 min-h-[3.5rem]">{deal.product_name}</h3>
-        <p className="text-gray-700 mb-4 text-sm line-clamp-2 min-h-[2.5rem]">{deal.short_description}</p>
+        <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 min-h-[3.5rem] tracking-tight">{deal.product_name}</h3>
+        <p className="text-gray-600 mb-5 text-sm line-clamp-2 min-h-[2.5rem] leading-relaxed">{deal.short_description}</p>
         
-        <div className="flex items-center gap-3 mb-4 min-h-[1.25rem]">
-          <Badge variant="outline" className="text-xs">{deal.category}</Badge>
+        <div className="flex items-center gap-3 mb-5 min-h-[1.25rem]">
+          <Badge variant="outline" className="text-xs rounded-full border-gray-200 text-gray-600 bg-gray-50">{deal.category}</Badge>
           {deal.review_count > 0 && (
             <div className="flex items-center gap-1 text-xs text-gray-500">
               <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-              <span>{deal.avg_rating}</span>
+              <span className="font-medium text-gray-700">{deal.avg_rating}</span>
               <span>({deal.review_count})</span>
             </div>
           )}
         </div>
         
-        <div className="flex items-baseline justify-between mb-4">
+        <div className="flex items-baseline justify-between mb-5">
           <div className="flex items-baseline gap-2">
-            <span className="text-3xl font-bold text-black">{formatPrice(deal.deal_price)}</span>
-            <span className="text-lg text-gray-400 line-through">{formatPrice(deal.original_price)}</span>
+            <span className="text-3xl font-bold text-gray-900">{formatPrice(deal.deal_price)}</span>
+            <span className="text-lg text-gray-400 line-through decoration-gray-300">{formatPrice(deal.original_price)}</span>
           </div>
           {timeLeft && timeLeft > 0 && (
-            <div className={`flex items-center gap-1 text-xs ${
-              isUrgent ? 'text-red-600 font-bold' : 'text-gray-600'
+            <div className={`flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full ${
+              isUrgent ? 'text-red-600 bg-red-50' : 'text-gray-600 bg-gray-50'
             }`}>
               <Clock className={`w-3 h-3 ${isUrgent ? 'animate-pulse' : ''}`} />
               {timeLeft}d left
@@ -368,31 +372,31 @@ const FeaturedDealCard = ({ deal, isLoggedIn, showVotes = true }) => {
           )}
         </div>
 
-        <div className="flex items-center justify-between mb-4 text-xs">
+        <div className="flex items-center justify-between mb-5 text-xs">
           {/* Only show codes left if we have real data */}
           {realCodesLeft ? (
-            <span className="text-gray-500 flex items-center gap-1">
+            <span className="text-gray-500 flex items-center gap-1 bg-gray-50 px-2 py-1 rounded-full">
               <Users className="w-3 h-3" />
-              {realCodesLeft} left
+              <span className="font-medium">{realCodesLeft} left</span>
             </span>
           ) : (
-            <span className="text-gray-500">
+            <span className="text-gray-400 font-medium">
               Deal Active
             </span>
           )}
-          <span className="text-green-600 font-semibold">
+          <span className="text-green-600 font-bold bg-green-50 px-2 py-1 rounded-full">
             Save ${(deal.original_price - deal.deal_price).toFixed(0)}
           </span>
         </div>
         
         <div className="space-y-3 mt-auto">
           <Link href={`/deals/${deal.slug || deal.id}`} className="block w-full">
-            <button className={`w-full font-bold py-3 rounded-lg transition-colors duration-200 flex items-center justify-center gap-2 ${
+            <button className={`btn-organic w-full font-bold py-3.5 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 text-sm shadow-md hover:shadow-lg hover:-translate-y-0.5 ${
               isUrgent 
-                ? 'bg-red-600 hover:bg-red-700 text-white' 
-                : 'bg-black hover:bg-gray-800 text-yellow-400'
+                ? 'bg-gradient-to-r from-red-500 to-pink-600 text-white' 
+                : 'bg-gray-900 text-white hover:bg-black'
             }`}>
-              {isUrgent ? 'View Deal!' : 'View Deal'} <ArrowRight className="w-4 h-4" />
+              {isUrgent ? 'Claim Deal' : 'View Deal'} <ArrowRight className="w-4 h-4" />
             </button>
           </Link>
           <Link 
@@ -400,10 +404,10 @@ const FeaturedDealCard = ({ deal, isLoggedIn, showVotes = true }) => {
             href={deal.product_website ? getExternalDealURL(deal.product_website, 'featuredDeal') : `/deals/${deal.slug || deal.id}`} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="block w-full text-center text-sm text-gray-600 hover:text-gray-800 underline"
+            className="block w-full text-center text-xs font-medium text-gray-500 hover:text-gray-900 transition-colors"
             onClick={() => trackGoogleEvent('outbound_click', 'conversion', `featured_${deal.product_name}`)}
           >
-            Get Deal →
+            Visit Website Directly
           </Link>
         </div>
       </CardContent>
@@ -427,21 +431,22 @@ const QuickDealCard = ({ deal, isLoggedIn, showVotes = true }) => {
   const realCodesLeft = deal.codes_remaining || null
 
   return (
-    <Link prefetch={false} href={`/deals/${deal.slug || deal.id}`} className="block h-full">
-      <div className={`bg-white border-2 rounded-lg p-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative h-full min-h-[220px] flex flex-col justify-between ${
-        isUrgent ? 'border-red-500 hover:border-red-600' : 'border-black hover:border-gray-800'
+    <Link prefetch={false} href={`/deals/${deal.slug || deal.id}`} className="block h-full group">
+      <div className={`organic-card p-5 h-full min-h-[220px] flex flex-col justify-between ${
+        isUrgent ? 'ring-1 ring-red-100' : ''
       }`}>
         {isUrgent && (
-          <div className="absolute top-2 right-2 z-10 bg-red-600 text-white text-xs px-2 py-1 rounded-full font-bold">
-            URGENT!
+          <div className="absolute top-3 right-3 z-10 bg-red-50 text-red-600 text-[10px] px-2 py-0.5 rounded-full font-bold border border-red-100 flex items-center gap-1">
+            <Flame className="w-3 h-3" />
+            URGENT
           </div>
         )}
         
-        <div className="flex items-center justify-between mb-2 min-h-[1.25rem]">
-          <h4 className="font-bold text-black text-sm line-clamp-1 flex-1 mr-2">{deal.product_name}</h4>
+        <div className="flex items-center justify-between mb-4 min-h-[1.25rem]">
+          <h4 className="font-bold text-gray-900 text-sm line-clamp-1 flex-1 mr-3 group-hover:text-blue-600 transition-colors">{deal.product_name}</h4>
           
           {/* Product Icon */}
-          <div className="w-8 h-8 rounded-md overflow-hidden border border-gray-200 bg-white flex items-center justify-center flex-shrink-0">
+          <div className="w-10 h-10 rounded-xl overflow-hidden shadow-sm bg-white flex items-center justify-center flex-shrink-0 border border-gray-100">
             {deal.logo_url ? (
               <img 
                 src={deal.logo_url} 
@@ -457,39 +462,39 @@ const QuickDealCard = ({ deal, isLoggedIn, showVotes = true }) => {
           </div>
         </div>
         
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-3">
           <div className="flex items-baseline gap-2">
-            <span className="text-lg font-bold text-black">{formatPrice(deal.deal_price)}</span>
-            <span className="text-sm text-gray-400 line-through">{formatPrice(deal.original_price)}</span>
+            <span className="text-lg font-bold text-gray-900">{formatPrice(deal.deal_price)}</span>
+            <span className="text-xs text-gray-400 line-through decoration-gray-300">{formatPrice(deal.original_price)}</span>
           </div>
-          <Badge className={`text-[11px] font-bold rounded-full px-2 py-1 ${
-            isUrgent ? 'bg-red-600 text-white' : 'bg-black text-yellow-400'
+          <Badge className={`text-[10px] font-bold rounded-full px-2 py-0.5 shadow-none border-0 ${
+            isUrgent ? 'bg-red-50 text-red-600' : 'bg-yellow-100 text-yellow-800'
           }`}>
             {deal.discount_percentage}% OFF
           </Badge>
         </div>
         
-        <div className="flex items-center justify-between min-h-[1.25rem]">
+        <div className="flex items-center justify-between min-h-[1.25rem] mt-auto pt-3 border-t border-gray-50">
           {/* Only show codes left if we have real data */}
           {realCodesLeft ? (
-            <span className="text-xs text-gray-500 flex items-center gap-1">
+            <span className="text-[11px] text-gray-500 flex items-center gap-1">
               <Users className="w-3 h-3" />
               {realCodesLeft} left
             </span>
           ) : (
-            <span className="text-xs text-gray-500">
+            <span className="text-[11px] text-gray-400">
               Deal Active
             </span>
           )}
           
           <div className="flex items-center gap-2">
             {deal.review_count > 0 && (
-              <div className="flex items-center gap-1 text-xs text-gray-500">
+              <div className="flex items-center gap-1 text-[11px] text-gray-500">
                 <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                 <span>{deal.avg_rating}</span>
               </div>
             )}
-            <span className="text-xs text-green-600 font-semibold">
+            <span className="text-[11px] text-green-600 font-bold">
               Save ${(deal.original_price - deal.deal_price).toFixed(0)}
             </span>
           </div>
@@ -508,27 +513,35 @@ const DealHunterStats = ({ totalSavings, activeDeals }) => {
   }
 
   return (
-    <div className="bg-gradient-to-r from-green-50 to-blue-50 border-2 border-gray-200 rounded-lg p-4 mb-8">
-      <div className="flex items-center justify-center gap-8 text-center">
-        <div className="flex items-center gap-2">
-          <Trophy className="w-5 h-5 text-yellow-500" />
+    <div className="organic-card p-6 mb-10 bg-gradient-to-r from-green-50/50 to-blue-50/50">
+      <div className="flex items-center justify-around gap-8 text-center">
+        <div className="flex flex-col items-center gap-1 group">
+          <div className="p-3 bg-white rounded-full shadow-sm mb-1 group-hover:scale-110 transition-transform">
+            <Trophy className="w-6 h-6 text-yellow-400" />
+          </div>
           <div>
-            <div className="text-lg font-bold text-black">{formatNumber(totalSavings)}</div>
-            <div className="text-xs text-gray-600">Total Savings</div>
+            <div className="text-xl font-bold text-gray-900">{formatNumber(totalSavings)}</div>
+            <div className="text-xs text-gray-500 font-medium uppercase tracking-wide">Total Savings</div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Flame className="w-5 h-5 text-red-500" />
+        <div className="w-px h-12 bg-gray-200 hidden sm:block"></div>
+        <div className="flex flex-col items-center gap-1 group">
+          <div className="p-3 bg-white rounded-full shadow-sm mb-1 group-hover:scale-110 transition-transform">
+            <Flame className="w-6 h-6 text-red-500" />
+          </div>
           <div>
-            <div className="text-lg font-bold text-black">{activeDeals}</div>
-            <div className="text-xs text-gray-600">Active Deals</div>
+            <div className="text-xl font-bold text-gray-900">{activeDeals}</div>
+            <div className="text-xs text-gray-500 font-medium uppercase tracking-wide">Active Deals</div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <Zap className="w-5 h-5 text-blue-500" />
+        <div className="w-px h-12 bg-gray-200 hidden sm:block"></div>
+        <div className="flex flex-col items-center gap-1 group">
+          <div className="p-3 bg-white rounded-full shadow-sm mb-1 group-hover:scale-110 transition-transform">
+            <Zap className="w-6 h-6 text-blue-500" />
+          </div>
           <div>
-            <div className="text-lg font-bold text-black">Live</div>
-            <div className="text-xs text-gray-600">Platform Status</div>
+            <div className="text-xl font-bold text-green-600">Live</div>
+            <div className="text-xs text-gray-500 font-medium uppercase tracking-wide">Platform Status</div>
           </div>
         </div>
       </div>
@@ -715,23 +728,26 @@ export default function DealHunterOptimizedHomepage() {
 
   return (
     <>
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50/30">
       {/* Deal Hunter Optimized Hero Section */}
-      <section className="px-6 md:px-8 pt-16 pb-8">
+      <section className="px-4 md:px-8 pt-6 pb-8">
         <div className="max-w-7xl mx-auto">
           <AboveFoldHero allDeals={allDeals} isLoggedIn={isLoggedIn} />
         </div>
       </section>
 
       {/* Featured Deals Section */}
-      <section className="px-6 md:px-8 py-8 bg-white/20">
+      <section className="px-6 md:px-8 py-12 relative overflow-hidden">
+        {/* Soft background blob */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-b from-transparent via-yellow-50/30 to-transparent -z-10 blur-3xl rounded-full opacity-60 pointer-events-none"></div>
+        
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl md:text-4xl font-black text-black mb-4 flex items-center justify-center gap-3">
-              <Flame className="w-8 h-8 text-red-500" />
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3 watercolor-text">
+              <Flame className="w-8 h-8 text-red-500 fill-red-100" />
               Featured Deals
             </h2>
-            <p className="text-lg text-black/70 font-medium max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 font-medium max-w-2xl mx-auto">
               Hand-picked premium tools with the biggest discounts and shortest time left
             </p>
           </div>
@@ -739,29 +755,27 @@ export default function DealHunterOptimizedHomepage() {
           {loading ? (
             <div className="grid md:grid-cols-3 gap-6 items-stretch">
               {[1, 2, 3].map((i) => (
-                <Card key={i} className="h-64 bg-white/80 border-2 border-black">
-                  <CardContent className="p-6">
-                    <div className="animate-pulse space-y-4">
-                      <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-                      <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-                      <div className="h-4 bg-gray-300 rounded w-2/3"></div>
-                      <div className="h-8 bg-gray-300 rounded w-full"></div>
-                    </div>
-                  </CardContent>
-                </Card>
+                <div key={i} className="h-64 bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
+                  <div className="animate-pulse space-y-4">
+                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+                    <div className="h-8 bg-gray-200 rounded w-full"></div>
+                  </div>
+                </div>
               ))}
             </div>
           ) : featuredDeals.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
               {/* Show REAL deals only */}
               {featuredDeals.slice(0, 3).map((deal) => (
                 <FeaturedDealCard key={deal.id} deal={deal} isLoggedIn={isLoggedIn} />
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <h3 className="text-2xl font-bold text-black mb-4">Loading Fresh Deals...</h3>
-              <p className="text-black/80 mb-6">We're updating the hottest deals for you!</p>
+            <div className="text-center py-16 bg-white/50 rounded-3xl border border-dashed border-gray-200">
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Loading Fresh Deals...</h3>
+              <p className="text-gray-500 mb-6">We're updating the hottest deals for you!</p>
             </div>
           )}
         </div>
@@ -775,28 +789,28 @@ export default function DealHunterOptimizedHomepage() {
       </section>
 
       {/* Category Swim Lanes Section */}
-      <section className="px-6 md:px-8 py-12 bg-white/10">
+      <section className="px-6 md:px-8 py-16">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-black text-black mb-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 watercolor-text">
               Browse by Category
             </h2>
-            <p className="text-lg text-black/70 font-medium max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 font-medium max-w-2xl mx-auto">
               Find deals tailored to your specific needs and workflow
             </p>
           </div>
             
           {loading ? (
-            <div className="space-y-12">
+            <div className="space-y-16">
               {categories.map((category, i) => (
                 <div key={i} className="space-y-6">
-                  <div className="h-8 bg-gray-300 rounded w-64"></div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-stretch">
+                  <div className="h-8 bg-gray-200 rounded-full w-48"></div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 items-stretch">
                     {[1, 2, 3, 4, 5].map((j) => (
-                      <div key={j} className="bg-white/80 border-2 border-black rounded-lg p-4 h-32">
-                        <div className="animate-pulse space-y-2">
-                          <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-                          <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                      <div key={j} className="bg-white rounded-2xl p-4 h-32 border border-gray-100 shadow-sm">
+                        <div className="animate-pulse space-y-3">
+                          <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+                          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
                         </div>
                       </div>
                     ))}
@@ -805,7 +819,7 @@ export default function DealHunterOptimizedHomepage() {
               ))}
             </div>
           ) : (
-            <div className="space-y-12">
+            <div className="space-y-16">
               {categories.map((category) => (
                 <CategorySwimLane 
                   key={category.slug} 
@@ -820,42 +834,62 @@ export default function DealHunterOptimizedHomepage() {
       </section>
         
       {/* Enhanced CTAs for Deal Hunters */}
-      <section className="px-6 md:px-8 py-16">
+      <section className="px-6 md:px-8 py-20">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-black rounded-3xl p-8 md:p-12 text-center shadow-2xl relative overflow-hidden">
+          <div className="bg-gray-900 rounded-[2.5rem] p-10 md:p-16 text-center shadow-2xl relative overflow-hidden group">
             {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#ffffff_1.5px,transparent_1.5px)] [background-size:24px_24px] group-hover:scale-105 transition-transform duration-1000"></div>
+            <div className="absolute -top-24 -right-24 w-64 h-64 bg-yellow-500/20 blur-3xl rounded-full"></div>
+            <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-500/20 blur-3xl rounded-full"></div>
             
             <div className="relative z-10">
-              <h3 className="text-3xl md:text-4xl font-black text-yellow-400 mb-6">
+              <h3 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight">
                 Don't Miss the Next Unicorn
               </h3>
-              <p className="text-xl text-yellow-100/90 mb-8 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
                 Most deals last 7 days. If you're seeing this, you've already missed 3 deals this week. Stop paying full price for your stack.
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
                 <Link 
                   href={isLoggedIn ? "/deals" : "/sign-in"}
-                  className="bg-yellow-400 hover:bg-yellow-300 text-black px-8 py-4 rounded-full font-black text-lg transition-all duration-200 flex items-center gap-3 shadow-lg hover:shadow-xl hover:scale-105"
+                  className="btn-organic bg-white hover:bg-gray-50 text-gray-900 px-10 py-4.5 rounded-full font-bold text-lg transition-all duration-300 flex items-center gap-3 shadow-lg hover:shadow-xl hover:-translate-y-1"
                 >
-                  <Flame className="w-6 h-6" />
+                  <Flame className="w-6 h-6 text-red-500" />
                   {isLoggedIn ? "Access All Deals" : "Join for Free"}
                 </Link>
               </div>
-              <p className="mt-6 text-sm text-gray-500">
+              <p className="mt-8 text-sm text-gray-500 font-medium">
                 100% Free for Hunters. No credit card required.
               </p>
             </div>
           </div>
         </div>
       </section>
+
+      {/* SEO Content Section */}
+      <section className="px-6 md:px-8 py-16 bg-white">
+        <div className="max-w-4xl mx-auto prose prose-lg text-gray-600">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6 watercolor-text">Why Choose IndieSaasDeals?</h2>
+          <p className="mb-4">
+            Welcome to the premier marketplace for <strong>exclusive SaaS discounts</strong> tailored specifically for indie hackers, solopreneurs, and bootstrapped startup founders. We understand that every dollar counts when you're building a business from the ground up. That's why we partner directly with ambitious indie founders to bring you verified, high-value deals on the tools you need to ship faster.
+          </p>
+          <p className="mb-4">
+            Unlike other deal sites that list abandonware or low-quality lifetime deals, <strong>IndieSaasDeals</strong> focuses on active, growing software products. Our rigorous verification process ensures that every tool listed on our platform is supported by a real team committed to long-term success. Whether you need marketing automation software, developer tools, design resources, or project management platforms, you'll find trusted solutions here at 50-80% off their regular price.
+          </p>
+          <h3 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Curated for Builders, By Builders</h3>
+          <p className="mb-4">
+            Our community is built on trust and transparency. We manually vet every submission to guarantee it meets our high standards for quality and utility. By claiming a deal on our platform, you're not just saving money—you're supporting the indie maker ecosystem. Founders get early adopters and valuable feedback, while you get premium tools at a fraction of the cost. It's a win-win for the entire startup community.
+          </p>
+          <p>
+            Join thousands of smart founders who use IndieSaasDeals to build their tech stack for less. From AI-powered writing assistants to no-code website builders, discover the next unicorn tool before it goes mainstream.
+          </p>
+        </div>
+      </section>
     </div>
     
     {/* Email Capture Modal - DISABLED: Using SpinWheel instead */}
     {/* <BirdDogEmailModal /> */}
-    
-    
     
     </>
   )

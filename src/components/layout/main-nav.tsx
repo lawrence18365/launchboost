@@ -72,7 +72,7 @@ export function MainNav({ user }: MainNavProps) {
           <input
             type="text"
             placeholder="Search products..."
-            className="w-72 h-9 pl-9 pr-4 bg-white border-2 border-foreground rounded-lg text-sm placeholder-foreground/50 focus:outline-none focus:ring-2 focus:ring-ring focus:bg-white font-medium"
+            className="w-72 h-10 pl-10 pr-4 bg-gray-50 border border-gray-200 rounded-full text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:bg-white font-medium transition-all"
           />
         </div>
 
@@ -81,7 +81,7 @@ export function MainNav({ user }: MainNavProps) {
             <Button 
               variant="ghost"
               size="sm"
-              className="text-black/80 hover:text-black hover:bg-white/20 font-bold h-9 px-6 rounded-full hidden md:inline-flex"
+              className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 font-bold h-10 px-6 rounded-full hidden md:inline-flex"
               asChild
             >
               <Link href="/dashboard">
@@ -90,7 +90,7 @@ export function MainNav({ user }: MainNavProps) {
             </Button>
             <Button 
               size="sm"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-9 px-6 rounded-full shadow-lg hidden md:inline-flex"
+              className="bg-gray-900 hover:bg-black text-white font-bold h-10 px-6 rounded-full shadow-md hover:shadow-lg transition-all hidden md:inline-flex"
               asChild
             >
               <Link href="/dashboard/deals/new">
@@ -106,7 +106,7 @@ export function MainNav({ user }: MainNavProps) {
             <Button 
               variant="ghost"
               size="sm"
-              className="text-black/80 hover:text-black hover:bg-white/20 font-bold h-9 px-6 rounded-full hidden md:inline-flex"
+              className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 font-bold h-10 px-6 rounded-full hidden md:inline-flex"
               asChild
             >
               <Link href="/sign-in">
@@ -115,7 +115,7 @@ export function MainNav({ user }: MainNavProps) {
             </Button>
             <Button 
               size="sm"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold h-9 px-6 rounded-full shadow-lg hidden md:inline-flex"
+              className="bg-yellow-400 hover:bg-yellow-300 text-black font-bold h-10 px-6 rounded-full shadow-md hover:shadow-lg transition-all hidden md:inline-flex border border-yellow-500/20"
               asChild
             >
               <Link href="/sign-in">

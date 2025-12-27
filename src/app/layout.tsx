@@ -12,9 +12,9 @@ import { StructuredData } from "@/components/seo/StructuredData";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "IndieSaasDeals - Exclusive SaaS Discounts for Indie Hackers & Startup Founders",
+  title: "IndieSaasDeals: 50-80% Off SaaS Tools for Startups",
   description:
-    "Get 50-80% off premium SaaS tools. Hand-picked deals from indie founders for indie builders. Featured: project management, design tools, marketing automation & developer resources.",
+    "Get 50-80% off premium SaaS tools. Hand-picked discounts on project management, design, and marketing software for indie hackers and startups.",
   keywords: [
     "saas deals",
     "software discounts", 

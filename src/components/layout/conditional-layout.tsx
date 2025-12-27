@@ -55,7 +55,7 @@ export function ConditionalLayout({ children }: ConditionalLayoutProps) {
   // For non-admin routes, return with main nav/footer
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
-      <header className="sticky top-0 z-50 w-full border-b border-foreground bg-brand">
+      <header className="sticky top-0 z-50 w-full border-b border-gray-100/50 bg-white/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6">
           <MainNav user={user} />
         </div>
