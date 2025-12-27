@@ -138,15 +138,15 @@ const TabbedHero = ({ deals, isLoggedIn, heroMode = false, showHeader = true }) 
         <div className={`${heroMode ? 'text-left' : 'text-center'} mb-10`}>
           {heroMode ? (
             <h2 className="text-4xl md:text-5xl font-semibold tracking-tight text-gray-900 mb-4 watercolor-text">
-              Hot Deals Right Now
+              Trending Opportunities
             </h2>
           ) : (
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 watercolor-text">
-              Hot Deals Right Now
+              Trending Opportunities
             </h2>
           )}
           <p className={`text-base md:text-lg text-gray-600 ${heroMode ? '' : 'font-medium'}`}>
-            Fresh, verified discounts from indie SaaS founders — save on tools to build, launch, and grow.
+            High-impact resources for scaling ventures, curated for performance and reliability.
           </p>
         </div>
       )}
@@ -241,18 +241,18 @@ const AboveFoldHero = ({ allDeals, isLoggedIn }) => {
           <div className="lg:col-span-5 animate-slide-up">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/60 backdrop-blur-sm border border-black/5 text-xs font-bold uppercase tracking-wider mb-6 shadow-sm">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-              Live: {allDeals.length > 0 ? allDeals.length : '12'} Active Deals
+              Curated Enterprise-Grade Tools
             </div>
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.0] text-black mb-8 watercolor-text">
-              SaaS Deals That <span className="relative inline-block text-black">
-                Actually Work.
+              Premium Software <span className="relative inline-block text-black">
+                Infrastructure.
                 <svg className="absolute w-full h-3 -bottom-1 left-0 text-yellow-300 -z-10" viewBox="0 0 100 10" preserveAspectRatio="none">
                   <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
                 </svg>
               </span>
             </h1>
             <p className="text-lg md:text-xl text-gray-700 max-w-xl mb-10 leading-relaxed font-medium">
-              Stop buying "lifetime deals" for tools that die in a month. We manually verify every founder. No abandonedware. No fake markups. Just legitimate tools for builders who ship.
+              Maximize your runway with exclusive negotiated rates on high-performance SaaS tools. Every listing is founder-verified to ensure long-term reliability and immediate ROI.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
@@ -260,24 +260,24 @@ const AboveFoldHero = ({ allDeals, isLoggedIn }) => {
                 href="/deals" 
                 className="btn-organic inline-flex items-center justify-center px-8 py-4 text-base font-bold text-black bg-yellow-400 hover:bg-yellow-300 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all"
               >
-                Browse Verified Deals
+                Explore Curated Catalog
               </Link>
               <Link 
                 href="/dashboard/deals/new" 
                 className="btn-organic inline-flex items-center justify-center px-8 py-4 text-base font-bold text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 hover:border-gray-300 shadow-sm hover:shadow-md transition-all"
               >
-                Submit a Deal
+                Submit a Product
               </Link>
             </div>
             
             <div className="mt-10 flex items-center gap-6 text-sm font-medium text-gray-500">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-green-500" />
-                <span>Founder Verified</span>
+                <span>Verified Ecosystem</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-green-500" />
-                <span>30-Day Guarantee</span>
+                <span>Direct Founder Support</span>
               </div>
             </div>
           </div>
@@ -521,7 +521,7 @@ const DealHunterStats = ({ totalSavings, activeDeals }) => {
           </div>
           <div>
             <div className="text-xl font-bold text-gray-900">{formatNumber(totalSavings)}</div>
-            <div className="text-xs text-gray-500 font-medium uppercase tracking-wide">Total Savings</div>
+            <div className="text-xs text-gray-500 font-medium uppercase tracking-wide">Capital Preserved</div>
           </div>
         </div>
         <div className="w-px h-12 bg-gray-200 hidden sm:block"></div>
@@ -531,7 +531,7 @@ const DealHunterStats = ({ totalSavings, activeDeals }) => {
           </div>
           <div>
             <div className="text-xl font-bold text-gray-900">{activeDeals}</div>
-            <div className="text-xs text-gray-500 font-medium uppercase tracking-wide">Active Deals</div>
+            <div className="text-xs text-gray-500 font-medium uppercase tracking-wide">Active Opportunities</div>
           </div>
         </div>
         <div className="w-px h-12 bg-gray-200 hidden sm:block"></div>
@@ -540,7 +540,7 @@ const DealHunterStats = ({ totalSavings, activeDeals }) => {
             <Zap className="w-6 h-6 text-blue-500" />
           </div>
           <div>
-            <div className="text-xl font-bold text-green-600">Live</div>
+            <div className="text-xl font-bold text-green-600">Operational</div>
             <div className="text-xs text-gray-500 font-medium uppercase tracking-wide">Platform Status</div>
           </div>
         </div>
