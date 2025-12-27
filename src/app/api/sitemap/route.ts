@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createRouteHandlerClient } from '@/lib/server/db'
 import { cookies } from 'next/headers'
 import { getPublishedPosts } from '@/lib/blog'
+import { staticCollections } from '@/lib/pseo-collections'
 
 // Static pages that should always be in the sitemap
 const STATIC_PAGES = [
@@ -61,6 +62,23 @@ export async function GET(request: NextRequest) {
     <priority>${page.priority}</priority>
   </url>
 `
+    }
+
+    // Add Programmatic SEO Collections
+    const collectionKeys = Object.keys(staticCollections);
+    if (collectionKeys.length > 0) {
+      sitemap += `
+  <!-- PSEO Collections -->
+`
+      for (const slug of collectionKeys) {
+        sitemap += `  <url>
+    <loc>${baseUrl}/collections/${slug}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+`
+      }
     }
 
     // Add dynamic deal pages
