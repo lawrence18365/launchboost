@@ -37,3 +37,7 @@ next-env.d.ts
 
 # supabase
 .env.local
+
+# env files
+.env.production
+.env.vercel

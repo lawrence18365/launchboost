@@ -9,7 +9,6 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { FacebookPixel } from "@/components/analytics/FacebookPixel";
 import { StructuredData } from "@/components/seo/StructuredData";
-import { EmailCaptureSystem } from "@/components/EmailCaptureSystem";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
@@ -109,7 +108,6 @@ export default function RootLayout({
         />
         <UIToaster />
         <CookieConsent />
-        <EmailCaptureSystem />
         <Suspense fallback={null}>
           <GoogleAnalytics />
         </Suspense>
