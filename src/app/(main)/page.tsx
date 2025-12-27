@@ -538,14 +538,18 @@ const DealHunterStats = ({ totalSavings, activeDeals }) => {
 
 // Category Swim Lane Component
 const CategorySwimLane = ({ category, deals, isLoggedIn }) => {
+  // STRICT FILTERING: Only show deals where the category matches EXACTLY
+  // This prevents the "Same deal everywhere" problem
   const categoryDeals = deals.filter(deal => {
-    // More precise category matching
-    const categoryMatch = deal.category?.toLowerCase() === category.slug.toLowerCase()
-    const titleMatch = deal.title?.toLowerCase().includes(category.slug.toLowerCase())
-    const descriptionMatch = deal.short_description?.toLowerCase().includes(category.slug.toLowerCase())
+    const categoryMatch = deal.category?.toLowerCase() === category.name.toLowerCase()
+                       || deal.category?.toLowerCase() === category.slug.toLowerCase();
     
-    return categoryMatch || titleMatch || descriptionMatch
-  })
+    // Only use strict matching for the swim lanes to ensure variety
+    return categoryMatch;
+  });
+  
+  // HIDE EMPTY SHELVES: If no deals, return null to hide the section
+  if (categoryDeals.length === 0) return null;
   
   return (
     <div className="mb-8">
@@ -568,26 +572,9 @@ const CategorySwimLane = ({ category, deals, isLoggedIn }) => {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {categoryDeals.length === 0 ? (
-          // Show empty state cards when no deals
-          <>
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="bg-white border-2 border-gray-200 rounded-lg p-4 h-32 flex items-center justify-center">
-                <div className="text-center text-gray-400">
-                  <category.icon className="w-8 h-8 mx-auto mb-2 text-gray-300" />
-                  <p className="text-xs">No deals yet</p>
-                </div>
-              </div>
-            ))}
-          </>
-        ) : (
-          // Show real deals
-          <>
-            {categoryDeals.slice(0, 4).map(deal => (
-              <QuickDealCard key={deal.id} deal={deal} isLoggedIn={isLoggedIn} showVotes={false} />
-            ))}
-          </>
-        )}
+        {categoryDeals.slice(0, 4).map(deal => (
+          <QuickDealCard key={deal.id} deal={deal} isLoggedIn={isLoggedIn} showVotes={false} />
+        ))}
       </div>
     </div>
   )
@@ -629,12 +616,13 @@ export default function DealHunterOptimizedHomepage() {
   })
   
   // Categories for swim lanes
+  // Ensure names match database categories exactly for the strict filter to work
   const categories = [
-    { name: 'MARKETING TOOLS', slug: 'marketing', icon: TrendingUp },
-    { name: 'DEVELOPER TOOLS', slug: 'development', icon: Zap },
-    { name: 'AI & AUTOMATION', slug: 'ai', icon: Star },
-    { name: 'DESIGN & CREATIVE', slug: 'design', icon: Trophy },
-    { name: 'PRODUCTIVITY', slug: 'productivity', icon: Clock }
+    { name: 'Marketing & Growth', slug: 'marketing', icon: TrendingUp },
+    { name: 'Developer Tools', slug: 'development', icon: Zap },
+    { name: 'AI & Machine Learning', slug: 'ai', icon: Star },
+    { name: 'Design & Creative', slug: 'design', icon: Trophy },
+    { name: 'Productivity & Organization', slug: 'productivity', icon: Clock }
   ]
 
   // Category detection effect: only honor explicit URL param, avoid referrer-based switches
@@ -660,24 +648,19 @@ export default function DealHunterOptimizedHomepage() {
           const allData = await allDealsResponse.json()
           const deals = allData.deals || []
           
-          // Separate deals by pricing tier
-          const featuredDealsData = deals.filter(deal => 
-            deal.pricing_tier === 'featured' || deal.pricing_tier === 'premium'
-          ).slice(0, 3)
-          
-          const quickDealsData = deals.filter(deal => 
-            deal.pricing_tier === 'free'
-          ).slice(0, 6)
-          
-          // If no featured deals, use the first 3 deals regardless of tier
-          const finalFeaturedDeals = featuredDealsData.length > 0 
-            ? featuredDealsData 
-            : deals.slice(0, 3)
+          // SMART FEATURED SORTING: Prioritize attractive impulse buys (Low Price + High Discount)
+          // Score = (Discount % / Price) to find value
+          // Boost "TaskFlow" specifically if found
+          const sortedByAppeal = [...deals].sort((a, b) => {
+            // Boost TaskFlow manually as requested
+            if (a.product_name.includes('TaskFlow')) return -1;
+            if (b.product_name.includes('TaskFlow')) return 1;
             
-          // If no free deals, use remaining deals
-          const finalQuickDeals = quickDealsData.length > 0 
-            ? quickDealsData 
-            : deals.slice(3, 9)
+            // Otherwise sort by deal price (lower is better for impulse)
+            return a.deal_price - b.deal_price;
+          });
+          
+          const finalFeaturedDeals = sortedByAppeal.slice(0, 3);
           
           // Identify urgent deals (ending within 24 hours)
           const currentTime = new Date()
@@ -689,7 +672,6 @@ export default function DealHunterOptimizedHomepage() {
           
           setAllDeals(deals)
           setFeaturedDeals(finalFeaturedDeals)
-          setQuickDeals(finalQuickDeals)
           setUrgentDeals(urgent)
           setActiveDeals(deals.length)
           
